@@ -106,3 +106,13 @@
   sysctl:
     name: net.ipv4.tcp_abort_on_overflow
     value: 1
+
+- name: turn on protection for bad icmp error messages
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+
+- name: turn on syncookies for SYN flood attack protection
+  sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
