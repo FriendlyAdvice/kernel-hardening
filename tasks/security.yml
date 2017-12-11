@@ -24,3 +24,13 @@
     name: kernel.pid_max
     value: 65536 # default 32768
 
+- name: controls the maximum size of a message, in bytes
+  sysctl:
+    name: kernel.msgmnb
+    value: 65536 # default 16384
+
+- name: controls the default maxmimum size of a mesage queue
+  sysctl:
+    name: kernel.msgmax
+    value: 32768 # default 8192
+
