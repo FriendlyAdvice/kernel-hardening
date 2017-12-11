@@ -1,0 +1,10 @@
+---
+- name: auto-reboot linux 30 seconds after a kernel panic
+  block:
+    - sysctl:
+        name: kernel.panic
+        value: 30
+
+    - sysctl:
+        name: kernel.panic_on_oops
+        value: 30

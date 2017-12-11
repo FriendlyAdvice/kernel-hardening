@@ -1,4 +1,6 @@
 ---
+- include: security.yml
+
 - include: net.yml
 
 - name: configure max open files
