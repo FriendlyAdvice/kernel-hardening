@@ -1,5 +1,5 @@
 ---
-- include: security.yml
+- include: kernel.yml
 
 - include: net.yml
 

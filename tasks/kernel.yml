@@ -9,11 +9,6 @@
         name: kernel.panic_on_oops
         value: 30 # default 0
 
-- name: controls the system request debugging functionality of the kernel
-  sysctl:
-    name: kernel.sysrq
-    value: 0 # default 176
-
 - name: controls whether core dumps will append the pid to the core filename
   sysctl:
     name: kernel.core_uses_pid
