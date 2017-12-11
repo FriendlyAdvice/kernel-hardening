@@ -3,3 +3,17 @@
   sysctl:
     name: fs.file-max
     value: 65536
+
+- name: do less swapping
+  block:
+    - sysctl:
+        name: vm.swappiness
+        value: 10 # default 60
+
+    - sysctl:
+        name: vm.dirty_ratio
+        value: 60 # default 20
+
+    - sysctl:
+        name: vm.dirty_background_ratio
+        value: 2 # default 10
