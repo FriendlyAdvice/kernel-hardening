@@ -3,8 +3,13 @@
   block:
     - sysctl:
         name: kernel.panic
-        value: 30
+        value: 30 # default 0
 
     - sysctl:
         name: kernel.panic_on_oops
-        value: 30
+        value: 30 # default 0
+
+- name: controls the system request debugging functionality of the kernel
+  sysctl:
+    name: kernel.sysrq
+    value: 0 # default 176
