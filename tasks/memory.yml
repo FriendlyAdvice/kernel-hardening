@@ -1,0 +1,5 @@
+---
+- name: configure max open files
+  sysctl:
+    name: fs.file-max
+    value: 65536
