@@ -13,3 +13,8 @@
   sysctl:
     name: kernel.sysrq
     value: 0 # default 176
+
+- name: controls whether core dumps will append the pid to the core filename
+  sysctl:
+    name: kernel.core_uses_pid
+    value: 1 # default 0
