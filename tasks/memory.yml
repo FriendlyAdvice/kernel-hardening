@@ -17,3 +17,8 @@
     - sysctl:
         name: vm.dirty_background_ratio
         value: 2 # default 10
+
+- name: specifies the minimum virtual address that a process is allowed to mmap
+  sysctl:
+    name: vm.mmap_min_addr
+    value: 65536 # default 65536

@@ -29,3 +29,12 @@
     name: kernel.msgmax
     value: 32768 # default 8192
 
+- name: set maximum amount of memory allocated to shm to 256MB
+  block:
+    - sysctl:
+        name: kernel.shmmax
+        value: 268435456 # default 33554432
+
+    - sysctl:
+        name: kernel.shmall
+        value: 268435456 # default 2097152
