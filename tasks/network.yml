@@ -69,6 +69,16 @@
         name: net.ipv6.conf.default.accept_source_route
         value: 0
 
+- name: enable ip spoofing protection, turn on source route verification
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.rp_filter
+        value: 1
+
+    - sysctl:
+        name: net.ipv4.conf.default.rp_filter
+        value: 1
+
 - name: allow reusing sockets in TIME_WAIT state for new connections
   sysctl:
     name: net.ipv4.tcp_tw_reuse
