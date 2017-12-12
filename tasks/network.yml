@@ -43,6 +43,32 @@
         name: net.ipv6.conf.default.forwarding
         value: 0
 
+- name: disables ip source routing
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.send_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.send_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.all.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.accept_source_route
+        value: 0
+
 - name: allow reusing sockets in TIME_WAIT state for new connections
   sysctl:
     name: net.ipv4.tcp_tw_reuse
