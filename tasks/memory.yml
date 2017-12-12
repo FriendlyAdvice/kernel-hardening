@@ -4,8 +4,8 @@
     name: fs.file-max
     value: 65536
 
-- name: do less swapping
-  block:
+# do less swapping
+- block:
     - sysctl:
         name: vm.swappiness
         value: 10 # default 60

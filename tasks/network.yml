@@ -82,8 +82,8 @@
     name: net.ipv4.tcp_abort_on_overflow
     value: 1
 
-- name: don't cache ssthresh from previous connection
-  block:
+# don't cache ssthresh from previous connection
+- block:
     - sysctl:
         name: net.ipv4.tcp_no_metrics_save
         value: 1
@@ -91,8 +91,8 @@
         name: net.ipv4.tcp_moderate_rcvbuf
         value: 1
 
-- name: neighbour table overflow
-  block:
+# neighbour table overflow
+- block:
     - sysctl:
         name: net.ipv4.neigh.default.gc_thresh1
         value: 256
