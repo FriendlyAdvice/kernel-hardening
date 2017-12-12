@@ -77,11 +77,6 @@
     name: net.ipv4.tcp_timestamps
     value: 0
 
-- name: selectively acknowledge each segment in a TCP window
-  sysctl:
-    name: net.ipv4.tcp_sack
-    value: 1
-
 - name: enabling tcp window scaling
   sysctl:
     name: net.ipv4.tcp_window_scaling
@@ -90,14 +85,4 @@
 - name: causes the kernel to actively send RST packets when a service is overloaded
   sysctl:
     name: net.ipv4.tcp_abort_on_overflow
-    value: 1
-
-- name: turn on protection for bad icmp error messages
-  sysctl:
-    name: net.ipv4.icmp_echo_ignore_broadcasts
-    value: 1
-
-- name: turn on syncookies for SYN flood attack protection
-  sysctl:
-    name: net.ipv4.icmp_ignore_bogus_error_responses
     value: 1

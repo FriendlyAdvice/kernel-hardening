@@ -106,3 +106,51 @@
     - sysctl:
         name: net.ipv4.conf.default.log_martians
         value: 0
+
+- name: don't relay bootp
+  sysctl:
+    name: net.ipv4.conf.all.bootp_relay
+    value: 0
+
+- name: don't proxy arp for anyone
+  sysctl:
+    name: net.ipv4.conf.all.proxy_arp
+    value: 0
+
+- name: turn on sack
+  block:
+    - sysctl:
+        name: net.ipv4.tcp_dsack
+        value: 1
+    - name: selectively acknowledge each segment in a TCP window
+      sysctl:
+        name: net.ipv4.tcp_sack
+        value: 1
+    - sysctl:
+        name: net.ipv4.tcp_fack
+        value: 1
+
+- name: don't ignore directed pings
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_all
+    value: 0
+
+- name: enable ignoring broadcasts request
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+
+- name: enable bad error message protection
+  sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+
+- name: allowed local port range
+  sysctl:
+    name: net.ipv4.ip_local_port_range
+    value: 8192 65535
+
+- name: enable a fix for rfc1337 - time-wait assassination hazards in tcp
+  sysctl:
+    name: net.ipv4.tcp_rfc1337
+    value: 1
