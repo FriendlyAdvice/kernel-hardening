@@ -21,6 +21,28 @@
         name: net.ipv4.tcp_max_syn_backlog
         value: 8192
 
+- name: disables packet forwarding
+  block:
+    - sysctl:
+        name: net.ipv4.ip_forward
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.all.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.forwarding
+        value: 0
+
 - name: allow reusing sockets in TIME_WAIT state for new connections
   sysctl:
     name: net.ipv4.tcp_tw_reuse
