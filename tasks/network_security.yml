@@ -78,3 +78,21 @@
     - sysctl:
         name: net.ipv4.conf.default.rp_filter
         value: 1
+
+- name: disable icmp redirect acceptance
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.accept_redirects
+        value: 0
