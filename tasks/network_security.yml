@@ -1,0 +1,156 @@
+---
+- name: prevent syn attack, enable syncookies (they will kick-in when the max_syn_backlog reached)
+  block:
+    - name: enable syn cookies
+      sysctl:
+        name: net.ipv4.tcp_syncookies
+        value: 1
+
+    - name: only retry creating tcp connections twice
+      sysctl:
+        name: net.ipv4.tcp_syn_retries
+        value: 2
+
+    - name: only retry creating TCP connections twice
+      sysctl:
+        name: net.ipv4.tcp_synack_retries
+        value: 2
+
+    - name: increase max half-open connections
+      sysctl:
+        name: net.ipv4.tcp_max_syn_backlog
+        value: 8192
+
+- name: disables packet forwarding
+  block:
+    - sysctl:
+        name: net.ipv4.ip_forward
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.all.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.forwarding
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.forwarding
+        value: 0
+
+- name: disables ip source routing
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.send_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.send_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.all.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.accept_source_route
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.accept_source_route
+        value: 0
+
+- name: enable ip spoofing protection, turn on source route verification
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.rp_filter
+        value: 1
+
+    - sysctl:
+        name: net.ipv4.conf.default.rp_filter
+        value: 1
+
+- name: disable icmp redirect acceptance
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.all.accept_redirects
+        value: 0
+
+    - sysctl:
+        name: net.ipv6.conf.default.accept_redirects
+        value: 0
+
+- name: disable log spoofed packets, source routed packets, redirect packets
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.log_martians
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.log_martians
+        value: 0
+
+- name: don't relay bootp
+  sysctl:
+    name: net.ipv4.conf.all.bootp_relay
+    value: 0
+
+- name: don't proxy arp for anyone
+  sysctl:
+    name: net.ipv4.conf.all.proxy_arp
+    value: 0
+
+- name: turn on sack
+  block:
+    - sysctl:
+        name: net.ipv4.tcp_dsack
+        value: 1
+    - name: selectively acknowledge each segment in a TCP window
+      sysctl:
+        name: net.ipv4.tcp_sack
+        value: 1
+    - sysctl:
+        name: net.ipv4.tcp_fack
+        value: 1
+
+- name: don't ignore directed pings
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_all
+    value: 0
+
+- name: enable ignoring broadcasts request
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+
+- name: enable bad error message protection
+  sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+
+- name: allowed local port range
+  sysctl:
+    name: net.ipv4.ip_local_port_range
+    value: 8192 65535
+
+- name: enable a fix for rfc1337 - time-wait assassination hazards in tcp
+  sysctl:
+    name: net.ipv4.tcp_rfc1337
+    value: 1

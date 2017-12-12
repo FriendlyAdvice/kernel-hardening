@@ -1,0 +1,40 @@
+---
+- name: auto-reboot linux 30 seconds after a kernel panic
+  block:
+    - sysctl:
+        name: kernel.panic
+        value: 30 # default 0
+
+    - sysctl:
+        name: kernel.panic_on_oops
+        value: 30 # default 0
+
+- name: controls whether core dumps will append the pid to the core filename
+  sysctl:
+    name: kernel.core_uses_pid
+    value: 1 # default 0
+
+- name: allow for more pids
+  sysctl:
+    name: kernel.pid_max
+    value: 65536 # default 32768
+
+- name: controls the maximum size of a message, in bytes
+  sysctl:
+    name: kernel.msgmnb
+    value: 65536 # default 16384
+
+- name: controls the default maxmimum size of a mesage queue
+  sysctl:
+    name: kernel.msgmax
+    value: 32768 # default 8192
+
+- name: set maximum amount of memory allocated to shm to 256MB
+  block:
+    - sysctl:
+        name: kernel.shmmax
+        value: 268435456 # default 33554432
+
+    - sysctl:
+        name: kernel.shmall
+        value: 268435456 # default 2097152

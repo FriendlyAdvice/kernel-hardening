@@ -1,48 +1,10 @@
 ---
-- include: net.yml
+- include: kernel.yml
 
-- name: configure max open files
-  sysctl:
-    name: fs.file-max
-    value: 65536
+- include: network_security.yml
 
-- name: enable pam
-  lineinfile:
-    dest: /etc/pam.d/common-session
-    line: 'session required pam_limits.so'
-    create: true
+- include: network.yml
 
-- name: set file size limits
-  pam_limits:
-    domain: '*'
-    limit_type: '-'
-    limit_item: fsize
-    value: unlimited
+- include: memory.yml
 
-- name: set cpu time limits
-  pam_limits:
-    domain: '*'
-    limit_type: '-'
-    limit_item: cpu
-    value: unlimited
-
-- name: set virtual memory size limits
-  pam_limits:
-    domain: '*'
-    limit_type: '-'
-    limit_item: as
-    value: unlimited
-
-- name: set open files limits
-  pam_limits:
-    domain: '*'
-    limit_type: '-'
-    limit_item: nofile
-    value: 65536
-
-- name: set processes/threads limits
-  pam_limits:
-    domain: '*'
-    limit_type: '-'
-    limit_item: nproc
-    value: 65536
+- include: security.yml
