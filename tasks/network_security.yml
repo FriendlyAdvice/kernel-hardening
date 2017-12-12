@@ -96,3 +96,13 @@
     - sysctl:
         name: net.ipv6.conf.default.accept_redirects
         value: 0
+
+- name: disable log spoofed packets, source routed packets, redirect packets
+  block:
+    - sysctl:
+        name: net.ipv4.conf.all.log_martians
+        value: 0
+
+    - sysctl:
+        name: net.ipv4.conf.default.log_martians
+        value: 0
