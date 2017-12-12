@@ -90,3 +90,21 @@
     - sysctl:
         name: net.ipv4.tcp_moderate_rcvbuf
         value: 1
+
+- name: neighbour table overflow
+  block:
+    - sysctl:
+        name: net.ipv4.neigh.default.gc_thresh1
+        value: 256
+    - sysctl:
+        name: net.ipv4.neigh.default.gc_thresh2
+        value: 1024
+    - sysctl:
+        name: net.ipv4.neigh.default.gc_thresh3
+        value: 2048
+    - sysctl:
+        name: net.ipv4.neigh.default.gc_interval
+        value: 60
+    - sysctl:
+        name: net.ipv4.neigh.default.gc_stale_time
+        value: 120
