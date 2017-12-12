@@ -1,6 +1,8 @@
 ---
 - include: kernel.yml
 
+- include: network_security.yml
+
 - include: network.yml
 
 - include: memory.yml
