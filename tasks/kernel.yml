@@ -1,6 +1,6 @@
 ---
-- name: auto-reboot linux 30 seconds after a kernel panic
-  block:
+# auto-reboot linux 30 seconds after a kernel panic
+- block:
     - sysctl:
         name: kernel.panic
         value: 30 # default 0
@@ -29,8 +29,8 @@
     name: kernel.msgmax
     value: 32768 # default 8192
 
-- name: set maximum amount of memory allocated to shm to 256MB
-  block:
+# set maximum amount of memory allocated to shm to 256MB
+- block:
     - sysctl:
         name: kernel.shmmax
         value: 268435456 # default 33554432
