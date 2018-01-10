@@ -82,40 +82,48 @@
 
 # enable ip spoofing protection, turn on source route verification
 - block:
-    - sysctl:
+    - name: enable net.ipv4.conf.all.rp_filter
+      sysctl:
         name: net.ipv4.conf.all.rp_filter
         value: 1
 
-    - sysctl:
+    - name: enable net.ipv4.conf.default.rp_filter
+      sysctl:
         name: net.ipv4.conf.default.rp_filter
         value: 1
 
 # disable icmp redirect acceptance
 - block:
-    - sysctl:
+    - name: disable net.ipv4.conf.all.accept_redirects
+      sysctl:
         name: net.ipv4.conf.all.accept_redirects
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.default.accept_redirects
+      sysctl:
         name: net.ipv4.conf.default.accept_redirects
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.all.accept_redirects
+      sysctl:
         name: net.ipv6.conf.all.accept_redirects
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.default.accept_redirects
+      sysctl:
         name: net.ipv6.conf.default.accept_redirects
         value: 0
 
+# TODO: uncomment, conflicts with dev-sec: https://github.com/dev-sec/linux-baseline/issues/48
 # disable log spoofed packets, source routed packets, redirect packets
-# TODO: re-enable, conflicts with dev-sec: https://github.com/dev-sec/linux-baseline/issues/48
 # - block:
-#     - sysctl:
+#     - name: disable net.ipv4.conf.all.log_martians
+#       sysctl:
 #         name: net.ipv4.conf.all.log_martians
 #         value: 0
 
-#     - sysctl:
+#     - name: disable net.ipv4.conf.default.log_martians
+#       sysctl:
 #         name: net.ipv4.conf.default.log_martians
 #         value: 0
 
@@ -131,14 +139,16 @@
 
 # turn on sack
 - block:
-    - sysctl:
+    - name: enable net.ipv4.tcp_dsack
+      sysctl:
         name: net.ipv4.tcp_dsack
         value: 1
     - name: selectively acknowledge each segment in a TCP window
       sysctl:
         name: net.ipv4.tcp_sack
         value: 1
-    - sysctl:
+    - name: enable net.ipv4.tcp_fack
+      sysctl:
         name: net.ipv4.tcp_fack
         value: 1
 

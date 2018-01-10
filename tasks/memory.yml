@@ -6,15 +6,18 @@
 
 # do less swapping
 - block:
-    - sysctl:
+    - name: set vm.swappiness to 10
+      sysctl:
         name: vm.swappiness
         value: 10 # default 60
 
-    - sysctl:
+    - name: set vm.dirty_ratio to 60
+      sysctl:
         name: vm.dirty_ratio
         value: 60 # default 20
 
-    - sysctl:
+    - name: set vm.dirty_background_ratio to 2
+      sysctl:
         name: vm.dirty_background_ratio
         value: 2 # default 10
 

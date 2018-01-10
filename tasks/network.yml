@@ -84,27 +84,34 @@
 
 # don't cache ssthresh from previous connection
 - block:
-    - sysctl:
+    - name: enable net.ipv4.tcp_no_metrics_save
+      sysctl:
         name: net.ipv4.tcp_no_metrics_save
         value: 1
-    - sysctl:
+    - name: enable net.ipv4.tcp_moderate_rcvbuf
+      sysctl:
         name: net.ipv4.tcp_moderate_rcvbuf
         value: 1
 
 # neighbour table overflow
 - block:
-    - sysctl:
+    - name: set net.ipv4.neigh.default.gc_thresh1 to 256
+      sysctl:
         name: net.ipv4.neigh.default.gc_thresh1
         value: 256
-    - sysctl:
+    - name: set net.ipv4.neigh.default.gc_thresh2 to 1024
+      sysctl:
         name: net.ipv4.neigh.default.gc_thresh2
         value: 1024
-    - sysctl:
+    - name: set net.ipv4.neigh.default.gc_thresh3 to 2048
+      sysctl:
         name: net.ipv4.neigh.default.gc_thresh3
         value: 2048
-    - sysctl:
+    - name: set net.ipv4.neigh.default.gc_interval to 60
+      sysctl:
         name: net.ipv4.neigh.default.gc_interval
         value: 60
-    - sysctl:
+    - name: set net.ipv4.neigh.default.gc_stale_time to 120
+      sysctl:
         name: net.ipv4.neigh.default.gc_stale_time
         value: 120
