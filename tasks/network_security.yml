@@ -23,49 +23,60 @@
 
 # disables packet forwarding
 - block:
-    - sysctl:
+    - name: disable net.ipv4.ip_forward
+      sysctl:
         name: net.ipv4.ip_forward
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.all.forwarding
+      sysctl:
         name: net.ipv4.conf.all.forwarding
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.default.forwarding
+      sysctl:
         name: net.ipv4.conf.default.forwarding
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.all.forwarding
+      sysctl:
         name: net.ipv6.conf.all.forwarding
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.default.forwarding
+      sysctl:
         name: net.ipv6.conf.default.forwarding
         value: 0
 
 # disables ip source routing
 - block:
-    - sysctl:
+    - name: disable net.ipv4.conf.all.send_redirects
+      sysctl:
         name: net.ipv4.conf.all.send_redirects
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.default.send_redirects
+      sysctl:
         name: net.ipv4.conf.default.send_redirects
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.all.accept_source_route
+      sysctl:
         name: net.ipv4.conf.all.accept_source_route
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv4.conf.default.accept_source_route
+      sysctl:
         name: net.ipv4.conf.default.accept_source_route
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.all.accept_source_route
+      sysctl:
         name: net.ipv6.conf.all.accept_source_route
         value: 0
 
-    - sysctl:
+    - name: disable net.ipv6.conf.default.accept_source_route
+      sysctl:
         name: net.ipv6.conf.default.accept_source_route
         value: 0
 
@@ -98,14 +109,15 @@
         value: 0
 
 # disable log spoofed packets, source routed packets, redirect packets
-- block:
-    - sysctl:
-        name: net.ipv4.conf.all.log_martians
-        value: 0
+# TODO: re-enable, conflicts with dev-sec: https://github.com/dev-sec/linux-baseline/issues/48
+# - block:
+#     - sysctl:
+#         name: net.ipv4.conf.all.log_martians
+#         value: 0
 
-    - sysctl:
-        name: net.ipv4.conf.default.log_martians
-        value: 0
+#     - sysctl:
+#         name: net.ipv4.conf.default.log_martians
+#         value: 0
 
 - name: don't relay bootp
   sysctl:
