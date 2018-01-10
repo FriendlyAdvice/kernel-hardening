@@ -98,14 +98,15 @@
         value: 0
 
 # disable log spoofed packets, source routed packets, redirect packets
-- block:
-    - sysctl:
-        name: net.ipv4.conf.all.log_martians
-        value: 0
+# TODO: re-enable, conflicts with dev-sec: https://github.com/dev-sec/linux-baseline/issues/48
+# - block:
+#     - sysctl:
+#         name: net.ipv4.conf.all.log_martians
+#         value: 0
 
-    - sysctl:
-        name: net.ipv4.conf.default.log_martians
-        value: 0
+#     - sysctl:
+#         name: net.ipv4.conf.default.log_martians
+#         value: 0
 
 - name: don't relay bootp
   sysctl:
