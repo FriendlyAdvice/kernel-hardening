@@ -23,69 +23,52 @@
 
 # disables ip source routing
 - block:
-    - name: disable net.ipv4.conf.all.send_redirects
+    - name: disable net.ipv4.conf.*.send_redirects
       sysctl:
-        name: net.ipv4.conf.all.send_redirects
+        name: "{{ item }}"
         value: 0
-
-    - name: disable net.ipv4.conf.default.send_redirects
-      sysctl:
-        name: net.ipv4.conf.default.send_redirects
-        value: 0
+      with_items:
+        - net.ipv4.conf.all.send_redirects
+        - net.ipv4.conf.default.send_redirects
 
     - name: disable net.ipv4.conf.all.accept_source_route
       sysctl:
-        name: net.ipv4.conf.all.accept_source_route
+        name: "{{ item }}"
         value: 0
-
-    - name: disable net.ipv4.conf.default.accept_source_route
-      sysctl:
-        name: net.ipv4.conf.default.accept_source_route
-        value: 0
+      with_items:
+        - net.ipv4.conf.all.accept_source_route
+        - net.ipv4.conf.default.accept_source_route
 
     - name: disable net.ipv6.conf.all.accept_source_route
       sysctl:
-        name: net.ipv6.conf.all.accept_source_route
+        name: "{{ item }}"
         value: 0
+      with_items:
+        - net.ipv6.conf.all.accept_source_route
+        - net.ipv6.conf.default.accept_source_route
 
-    - name: disable net.ipv6.conf.default.accept_source_route
-      sysctl:
-        name: net.ipv6.conf.default.accept_source_route
-        value: 0
 
 # enable ip spoofing protection, turn on source route verification
 - block:
-    - name: enable net.ipv4.conf.all.rp_filter
+    - name: enable net.ipv4.conf.*.rp_filter
       sysctl:
-        name: net.ipv4.conf.all.rp_filter
+        name: "{{ item }}"
         value: 1
-
-    - name: enable net.ipv4.conf.default.rp_filter
-      sysctl:
-        name: net.ipv4.conf.default.rp_filter
-        value: 1
+      with_items:
+        - net.ipv4.conf.all.rp_filter
+        - net.ipv4.conf.default.rp_filter
 
 # disable icmp redirect acceptance
 - block:
-    - name: disable net.ipv4.conf.all.accept_redirects
+    - name: disable net.*.conf.*.accept_redirects
       sysctl:
-        name: net.ipv4.conf.all.accept_redirects
+        name: "{{ item }}"
         value: 0
-
-    - name: disable net.ipv4.conf.default.accept_redirects
-      sysctl:
-        name: net.ipv4.conf.default.accept_redirects
-        value: 0
-
-    - name: disable net.ipv6.conf.all.accept_redirects
-      sysctl:
-        name: net.ipv6.conf.all.accept_redirects
-        value: 0
-
-    - name: disable net.ipv6.conf.default.accept_redirects
-      sysctl:
-        name: net.ipv6.conf.default.accept_redirects
-        value: 0
+      with_items:
+        - net.ipv4.conf.all.accept_redirects
+        - net.ipv4.conf.default.accept_redirects
+        - net.ipv6.conf.all.accept_redirects
+        - net.ipv6.conf.default.accept_redirects
 
 # TODO: uncomment, conflicts with dev-sec: https://github.com/dev-sec/linux-baseline/issues/48
 # disable log spoofed packets, source routed packets, redirect packets
