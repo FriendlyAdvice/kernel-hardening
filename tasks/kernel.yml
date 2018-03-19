@@ -24,12 +24,12 @@
 - name: controls the maximum size of a message, in bytes
   sysctl:
     name: kernel.msgmnb
-    value: 65536 # default 16384
+    value: 65535 # default 16384
 
 - name: controls the default maxmimum size of a mesage queue
   sysctl:
     name: kernel.msgmax
-    value: 65536 # default 8192
+    value: 65535 # default 8192
 
 # https://serverfault.com/questions/59824/shmmax-setting-in-sysctl-conf-not-taking-effect
 # set maximum amount of memory allocated to shm to 256MB

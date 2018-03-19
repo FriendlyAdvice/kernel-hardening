@@ -31,11 +31,11 @@
     domain: '*'
     limit_type: '-'
     limit_item: nofile
-    value: 65536
+    value: 65535
 
 - name: set processes/threads limits
   pam_limits:
     domain: '*'
     limit_type: '-'
     limit_item: nproc
-    value: 65536
+    value: 65535
