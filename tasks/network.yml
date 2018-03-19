@@ -4,28 +4,29 @@
     name: net.ipv4.tcp_tw_reuse
     value: 1
 
-- name: max rx/tx buffer size (16M)
+# https://wiki.mikejung.biz/Sysctl_tweaks
+- name: max rx/tx buffer size (8M)
   sysctl:
     name: "{{ item }}"
-    value: 16777216
+    value: 8388608
   with_items:
     - net.core.rmem_max
     - net.core.wmem_max
     - net.core.rmem_default
     - net.core.wmem_default
 
-- name: max rx/tx buffer size for ipv4 (16M)
+- name: max rx/tx buffer size for ipv4 (8M)
   sysctl:
     name: "{{ item }}"
-    value: "4096 87380 16777216"
+    value: "4096 4194304 8388608"
   with_items:
     - net.ipv4.tcp_rmem
     - net.ipv4.tcp_wmem
 
-- name: specify the maximum buffer size allowed per socket
+- name: specify the maximum buffer size allowed per socket (8MB)
   sysctl:
     name: net.core.optmem_max
-    value: 65536
+    value: 8388608
 
 - name: increase max number of sockets allowed in TIME_WAIT
   sysctl:
@@ -35,17 +36,18 @@
 - name: increase max TCP orphans
   sysctl:
     name: net.ipv4.tcp_max_orphans
-    value: 16384
+    value: 65535
 
+# https://serverfault.com/questions/518862/will-increasing-net-core-somaxconn-make-a-difference
 - name: max listen queue backlog
   sysctl:
     name: net.core.somaxconn
-    value: 65536
+    value: 65535
 
 - name: max number of packets that can be queued on interface input
   sysctl:
     name: net.core.netdev_max_backlog
-    value: 65536
+    value: 65535
 
 - name: timeout closing of TCP connections after 10 seconds
   sysctl:
